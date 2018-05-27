@@ -2,18 +2,28 @@ var title = $('#title-input').val();
 var body = $('#body-input').val();
 var numCards = 0;
 var qualityVariable = "swill";
-
+$('#title-input').on('keyup', disableSaveButton);
+$('#body-input').on('keyup', disableSaveButton);
 $('.save-btn').on('click', createNewCard);
 // $(".upvote").on('click', increaseQuality);
 // $(".downvote").on('click', decreaseQuality);
 
 
+function disableSaveButton(e) {
+    var title = $('#title-input').val();
+    var body = $('#body-input').val();
+    var saveButton = $('.save-btn');
+    console.log(e);
+    if (title === "" || body === "") {
+        saveButton.prop('disabled', true)
+    } else {
+        saveButton.prop('disabled', false)
+  } 
+    
+}
 
 function createNewCard(event) {
     event.preventDefault();
-    if ($('#title-input').val() === "" || $('#body-input').val() === "") {
-       return false;
-    };  
     numCards++;
     $( ".bottom-box" ).prepend(newCardTemplate('card' + numCards, $('#title-input').val(), $('#body-input').val(), qualityVariable)); 
     localStoreCard();
