@@ -7,13 +7,24 @@ $('#body-input').on('keyup', disableSaveButton);
 $('.save-btn').on('click', createNewCard);
 // $(".upvote").on('click', increaseQuality);
 // $(".downvote").on('click', decreaseQuality);
+$(document).ready( getLocalStorage )
 
 
-function disableSaveButton(e) {
+function getLocalStorage(){
+    console.log(Object.keys(localStorage))
+    var storedObjects = Object.keys(localStorage)
+    storedObjects.forEach(function (cardId, index) {
+    var retrieveObjects = localStorage.getItem(cardId) 
+    var parsedObjects = JSON.parse(retrieveObjects) 
+        console.log(parsedObjects.title)
+    $('.bottom-box').prepend(newCardTemplate('id', parsedObjects.title, parsedObjects.body, parsedObjects.quality));
+    })
+}
+
+function disableSaveButton() {
     var title = $('#title-input').val();
     var body = $('#body-input').val();
     var saveButton = $('.save-btn');
-    console.log(e);
     if (title === "" || body === "") {
         saveButton.prop('disabled', true)
     } else {
@@ -24,29 +35,36 @@ function disableSaveButton(e) {
 
 function createNewCard(event) {
     event.preventDefault();
-    numCards++;
-    $( ".bottom-box" ).prepend(newCardTemplate('card' + numCards, $('#title-input').val(), $('#body-input').val(), qualityVariable)); 
-    localStoreCard();
+    var title = $('#title-input').val();
+    var body = $('#body-input').val();
+    var quality = 'swill';
+    var id = 'card'+Date.now()
+    var cardDisplay = $('.bottom-box');
+    cardDisplay.prepend(newCardTemplate(id, title, body, quality)); 
+    localStoreCard(id, title, body, quality);
+    // retrieveCard();
     $('form')[0].reset();
+    disableSaveButton();
 };
 
 function newCardTemplate(id , title , body , quality) {
-    return `<div id="${id}" class="card-container"><h2 class="title-of-card"> 
-            ${title}</h2>
-            <button class="delete-button"></button>
-            <p class="body-of-card">${body}</p>
-            <button class="upvote"></button>
-            <button class="downvote"></button>
-            <p class="quality">quality: <span class="qualityVariable">${quality}</span></p>
-            <hr>
-            </div>`;
+    var template = `<div id="${id}" class="card-container"><h2 class="title-of-card"> 
+                    ${title}</h2>
+                    <button class="delete-button"></button>
+                    <p class="body-of-card">${body}</p>
+                    <button class="upvote"></button>
+                    <button class="downvote"></button>
+                    <p class="quality">quality: <span class="qualityVariable">${quality}</span></p>
+                    <hr>
+                    </div>`;
+    return template
 };
 
-function cardObject() {
+function cardObject(title, body, quality) {
    return {
-      title: $('#title-input').val(),
-      body: $('#body-input').val(),
-      quality: qualityVariable
+      title: title,
+      body: body,
+      quality: quality
     };
  }
 
@@ -59,10 +77,19 @@ function cardObject() {
 //     $( ".bottom-box" ).prepend(newCard(key, cardData.title, cardData.body, cardData.quality));
 // });
 
-function localStoreCard() {
-    var cardString = JSON.stringify(cardObject());
-    localStorage.setItem('card' + numCards  , cardString);
+function localStoreCard(id, title, body, quality) {
+    var cardString = JSON.stringify(cardObject(title, body, quality));
+    localStorage.setItem(id, cardString);
+    // console.log(cardString)
 }
+
+// function retrieveCard() {
+//     var cardString = JSON.stringify(cardObject());
+//     var retrieveObject = localStorage.getItem('card' + numCards)
+//     var parsedObject = JSON.parse(retrieveObject);
+//     console.log(parsedObject);
+
+// }
 
 //Separate into two function. Addin de
 
