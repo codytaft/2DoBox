@@ -67,6 +67,7 @@ function deleteButton() {
 
 function saveEditedContentBody() {
   var editedBody = $(this).children('.body-of-card').text();
+  console.log(this);
   var cardId = $(event.target).closest('article').attr('data-id');
   var retrievedCard = getCardFromStorage(cardId);
   retrievedCard.body = editedBody;
