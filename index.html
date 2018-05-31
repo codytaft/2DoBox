@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <title>ideaBox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,15 +13,15 @@
       <form>
         <h1 class="idea">ToDo</h1>
         <h1 class="box">BoX</h1>
-        <input id="title-input" type="text" placeholder="Title" aria-label>
+        <input id="title-input" type="text" placeholder="Title" aria-label="text input">
         <br/>
-        <input id="body-input" type="text" placeholder="Task">
+        <input id="body-input" type="text" placeholder="Task" aria-label="body input">
         <br/>  
-        <button class="save-btn" disabled="disabled">save</button>
+        <button class="save-btn" disabled="disabled" aria-label="save button">save</button>
         <br/>
       </form>
     </article>
-      <input id="search-input" type="text" placeholder="Search">
+      <input id="search-input" type="text" placeholder="Search" aria-label="search button">
     <article class="bottom-box"> </article>
   </section>
   <script src="./jquery/jquery-3.2.1.js"></script>

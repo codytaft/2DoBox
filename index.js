@@ -118,10 +118,10 @@ function createNewCard(event) {
 function newCardTemplate(id , title , body , quality) {
     var template = `<article data-id="${id}" class="card-container">
                     <h2 class="title-of-card" contentEditable="true">${title}</h2>
-                    <button class="delete-button"></button>
+                    <button class="delete-button" aria-label="delete task button"></button>
                     <p class="body-of-card" contentEditable="true">${body}</p>
-                    <button class="upvote"></button>
-                    <button class="downvote"></button>
+                    <button class="upvote" aria-label"upvote task button"></button>
+                    <button class="downvote" aria-label="downvote task-button"></button>
                     <p class="quality">quality: <span class="qualityVariable">${quality}</span></p>
                     <hr>
                     </article>`;
